@@ -7,11 +7,12 @@ class Polynominal{
   public:
   Polynominal(){}
 
-  // Crete a map to store the coefficients of the polynominals for each variable.
-  // Example: {"x", {1, 0, 5, -7}} => -7x^4 + 5x^3 + x + rest
-  // Example with 2 variables: {"x", {1, 2}}, {"y", {0, 3, 4}} => 4y^3 + 3*2x^2y^2 + x + rest
+  // Crete a vector to store the coefficients of the polynominals for each variable.
+  std::vector<int> coefficients;
 
-  std::map<std::string, std::vector<int>> coefficients;
+  // Create a map to store the literal parts of each variable in the polynominal.
+  // Example: {"X", {0, 1, 3}}, {"y", {1}} => x^3 + x^2 + y
+  std::map<std::string, std::vector<int>> literalParts;
 
   int rest;
 };
