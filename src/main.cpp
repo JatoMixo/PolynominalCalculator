@@ -28,7 +28,7 @@ int main(){
 
     if (operation == '='){
 
-    } else if (!polynominals.find(firstVarName) && !polynominals.find(secondVarName)) {
+    } else if (polynominals.find(firstVarName) && polynominals.find(secondVarName)) {
       std::cout << "Invalid polynominal => Doesn't exist.\n";
     }
     
