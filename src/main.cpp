@@ -1,6 +1,6 @@
 #include <iostream>
 #include <map>
-#include <D:/Miguel/Programas/PolynominalCalculator/src/polynominal.cpp>
+#include </home/jatomixo/Code/PolynominalCalculator/src/polynominal.cpp>
 
 int main(){
 
