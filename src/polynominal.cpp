@@ -19,6 +19,7 @@ class Polynominal{
 
       // Add the coefficient
       if (monomials[i].coefficient > 0) str += '+';
+      else if (monomials[i].coefficient < 0) str += '-';
       if (abs(monomials[i].coefficient > 1)) str += std::to_string(monomials[i].coefficient);
 
       // Check it it has literal parts and add it

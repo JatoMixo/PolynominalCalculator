@@ -45,14 +45,8 @@ int main(){
   }*/
 
   Polynominal test = Polynominal();
-  test.monomials.push_back(Monomial());
-  test.monomials[0].coefficient = 5;
-  test.monomials[0].literalPart["x"] = 2;
-  test.monomials[0].literalPart["a"] = 3;
-  test.monomials.push_back(Monomial());
-  test.monomials[1].coefficient = -1;
-  test.monomials[1].literalPart["x"] = 5;
-  test.monomials[1].literalPart["y"] = 1;
+  test.monomials.push_back(Monomial(5, {{"x", 2}, {"a", 3}}));
+  test.monomials.push_back(Monomial(-1, {{"x", 5}, {"y", 1}}));
 
   std::cout << test.toString();
 
