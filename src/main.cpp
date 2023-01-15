@@ -3,7 +3,6 @@
 #include <algorithm>
 #include </home/jatomixo/Code/PolynominalCalculator/src/polynominal.cpp>
 
-std::string polynominalToString(Polynominal pol);
 Polynominal SumPolynominals(Polynominal first, Polynominal second);
 Polynominal RestPolynominals(Polynominal first, Polynominal second);
 Polynominal MultiplyPolynominals(Polynominal first, Polynominal second);
@@ -17,7 +16,7 @@ int main(){
   std::map<std::string, Polynominal> polynominals;
 
   // Infinite loop
-  while (true){
+  /*while (true){
     std::cout << "\n>>> ";
 
     std::string firstVarName;
@@ -26,33 +25,30 @@ int main(){
 
     std::cin >> firstVarName >> operation >> secondVarName;
 
+    // Declare a new polynominal
     if (operation == '='){
 
-    } else if (polynominals.find(firstVarName) && polynominals.find(secondVarName)) {
+    } else if (polynominals.find(firstVarName) == polynominals.end() && polynominals.find(secondVarName) == polynominals.end()) {
       std::cout << "Invalid polynominal => Doesn't exist.\n";
     }
     
+    // Do the correct operation with the specified polynominals
     if (operation == '+'){
-      std::cout << polynominalToString(SumPolynominals(polynominals[firstVarName], polynominals[secondVarName]));
+      std::cout << SumPolynominals(polynominals[firstVarName], polynominals[secondVarName]).toString();
     } else if (operation == '-'){
-      std::cout << polynominalToString(RestPolynominals(polynominals[firstVarName], polynominals[secondVarName]));
+      std::cout << SumPolynominals(polynominals[firstVarName], polynominals[secondVarName]).toString();
     } else if (operation == '*'){
-      std::cout << polynominalToString(MultiplyPolynominals(polynominals[firstVarName], polynominals[secondVarName]));
+      std::cout << MultiplyPolynominals(polynominals[firstVarName], polynominals[secondVarName]).toString();
     } else if (operation == '/'){
-      std::cout << polynominalToString(DividePolynominals(polynominals[firstVarName], polynominals[secondVarName]));
+      std::cout << DividePolynominals(polynominals[firstVarName], polynominals[secondVarName]).toString();
     }
-  }
+  }*/
+
+  Polynominal test = Polynominal();
+  test.coefficients = {5, -6, 7};
+  test.literalParts["x"] = {1, 1};
+  test.literalParts["y"] = {1};
+  std::cout << test.toString();
 
   return 0;
-}
-
-std::string polynominalToString(Polynominal pol){
-
-  std::string convertion;
-
-  for (int i = 0; i < pol.coefficients.size(); i++){
-    convertion += pol.coefficients[i];
-  }
-
-  return convertion;
 }
