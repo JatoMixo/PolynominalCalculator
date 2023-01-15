@@ -1,7 +1,7 @@
 #include <iostream>
 #include <map>
 #include <algorithm>
-#include </home/jatomixo/Code/PolynominalCalculator/src/polynominal.cpp>
+#include <D:/Miguel/Programas/PolynominalCalculator/src/polynominal.cpp>
 
 Polynominal SumPolynominals(Polynominal first, Polynominal second);
 Polynominal RestPolynominals(Polynominal first, Polynominal second);
