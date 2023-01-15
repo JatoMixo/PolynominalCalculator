@@ -45,3 +45,14 @@ int main(){
 
   return 0;
 }
+
+std::string polynominalToString(Polynominal pol){
+
+  std::string convertion;
+
+  for (int i = 0; i < pol.coefficients.size(); i++){
+    convertion += pol.coefficients[i];
+  }
+
+  return convertion;
+}
