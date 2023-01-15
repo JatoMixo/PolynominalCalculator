@@ -1,18 +1,7 @@
 #include <vector>
 #include <cmath>
-#include <map>
 #include <string>
-
-class Monomial{
-
-  public:
-
-  Monomial() {}
-  Monomial(int coefficient, std::map<std::string, int> literalPart) {this->coefficient = coefficient; this->literalPart = literalPart;}
-
-  int coefficient;
-  std::map<std::string, int> literalPart;
-};
+#include <D:/Miguel/Programas/PolynominalCalculator/src/monomial.cpp>
 
 class Polynominal{
 
