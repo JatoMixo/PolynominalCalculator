@@ -48,7 +48,20 @@ int main(){
   test.monomials.push_back(Monomial(5, {{"x", 2}, {"a", 3}}));
   test.monomials.push_back(Monomial(-1, {{"x", 5}, {"y", 1}}));
 
-  std::cout << test.toString();
+  std::cout << test.toString() << '\n';
+  std::cout << SumPolynominals(test, test).toString() << '\n';
 
   return 0;
+}
+
+Polynominal SumPolynominals(Polynominal first, Polynominal second){
+  Polynominal result = Polynominal();
+
+  for (Monomial i : first.monomials){
+    for (Monomial j : second.monomials){
+      if (i.literalPart == j.literalPart) result.monomials.push_back(Monomial(i.coefficient + j.coefficient, i.literalPart));
+    }
+  }
+
+  return result;
 }
