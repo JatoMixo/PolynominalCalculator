@@ -46,7 +46,7 @@ int main(){
 
   Polynominal test = Polynominal();
   test.monomials.push_back(Monomial(5, {{"x", 2}, {"a", 3}}));
-  test.monomials.push_back(Monomial(-1, {{"x", 5}, {"y", 1}}));
+  test.monomials.push_back(Monomial(-2, {{"x", 5}, {"y", 1}}));
 
   std::cout << test.toString() << '\n';
   std::cout << SumPolynominals(test, test).toString() << '\n';
