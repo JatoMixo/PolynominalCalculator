@@ -20,7 +20,7 @@ class Polynominal{
       // Add the coefficient
       if (monomials[i].coefficient > 0) str += '+';
       else if (monomials[i].coefficient < 0) str += '-';
-      if (abs(monomials[i].coefficient > 1)) str += std::to_string(abs(monomials[i].coefficient));
+      if (abs(monomials[i].coefficient) > 1) str += std::to_string(abs(monomials[i].coefficient));
 
       // Check if it has literal parts and add it
       for (std::pair<std::string, int> j : monomials[i].literalPart){

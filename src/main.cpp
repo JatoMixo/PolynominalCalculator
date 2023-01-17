@@ -50,6 +50,7 @@ int main(){
 
   std::cout << test.toString() << '\n';
   std::cout << SumPolynominals(test, test).toString() << '\n';
+  std::cout << RestPolynominals(test, test).toString() << '\n';
 
   return 0;
 }
@@ -59,7 +60,7 @@ Polynominal SumPolynominals(Polynominal first, Polynominal second){
 
   for (Monomial i : first.monomials){
     for (Monomial j : second.monomials){
-      if (i.literalPart == j.literalPart) result.monomials.push_back(Monomial(i.coefficient + j.coefficient, i.literalPart));
+      if (i.literalPart == j.literalPart && i.coefficient + j.coefficient != 0) result.monomials.push_back(Monomial(i.coefficient + j.coefficient, i.literalPart));
     }
   }
 
@@ -68,9 +69,11 @@ Polynominal SumPolynominals(Polynominal first, Polynominal second){
 
 Polynominal RestPolynominals(Polynominal first, Polynominal second){
 
-  for (Monomial i : second.monomials){
-    i.coefficient *= -1;
+  Polynominal secondInverted;
+
+  for (int i = second.monomials.size() - 1; i >= 0; i--){
+    if (second.monomials[i].coefficient - first.monomials[i].coefficient != 0) secondInverted.monomials.push_back(Monomial(second.monomials[i].coefficient * -1, second.monomials[i].literalPart));
   }
 
-  return SumPolynominals(first, second);
+  return SumPolynominals(first, secondInverted);
 }
