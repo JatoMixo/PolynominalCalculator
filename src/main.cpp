@@ -77,3 +77,19 @@ Polynominal RestPolynominals(Polynominal first, Polynominal second){
 
   return SumPolynominals(first, secondInverted);
 }
+
+Polynominal MultiplyPolynominals(Polynominal first, Polynominal second){
+
+  Polynominal result = Polynominal();
+
+  for (Monomial i : first.monomials){
+    for (Monomial j : second.monomials){
+
+      std::map<std::string, int> literalPart;
+
+      if (i.coefficient * j.coefficient != 0) result.monomials.push_back(Monomial(i.coefficient * j.coefficient, literalPart));
+    }
+  }
+
+  return result;
+}
