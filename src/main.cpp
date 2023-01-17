@@ -65,3 +65,12 @@ Polynominal SumPolynominals(Polynominal first, Polynominal second){
 
   return result;
 }
+
+Polynominal RestPolynominals(Polynominal first, Polynominal second){
+
+  for (Monomial i : second.monomials){
+    i.coefficient *= -1;
+  }
+
+  return SumPolynominals(first, second);
+}
