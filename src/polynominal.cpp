@@ -34,4 +34,19 @@ class Polynominal{
 
     return str;
   }
+
+  int getGrade(){
+    int grade = 0;
+    for (Monomial i : monomials){
+
+      int actualGrade = 0;
+      for (std::pair<std::string, int> j : i.literalPart){
+        actualGrade += j.second;
+      }
+
+      if (actualGrade > grade) grade = actualGrade;
+    }
+
+    return grade;
+  }
 };
