@@ -32,6 +32,8 @@ class Polynominal{
       str += ' ';
     }
 
+    if (monomials.size() == 0) return "0";
+
     return str;
   }
 

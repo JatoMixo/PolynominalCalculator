@@ -51,6 +51,7 @@ int main(){
   std::cout << test.toString() << '\n';
   std::cout << SumPolynominals(test, test).toString() << '\n';
   std::cout << RestPolynominals(test, test).toString() << '\n';
+  std::cout << MultiplyPolynominals(test, test).toString() << '\n';
 
   return 0;
 }
