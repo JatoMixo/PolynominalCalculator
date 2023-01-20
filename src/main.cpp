@@ -48,10 +48,10 @@ int main(){
   test.monomials.push_back(Monomial(5, {{"x", 2}, {"a", 3}}));
   test.monomials.push_back(Monomial(-2, {{"x", 5}, {"y", 1}}));
 
-  std::cout << test.toString() << '\n';
-  std::cout << SumPolynominals(test, test).toString() << '\n'; // -4x5y + 10x2a3
-  std::cout << RestPolynominals(test, test).toString() << '\n'; // 0
-  std::cout << MultiplyPolynominals(test, test).toString() << '\n'; // 
+  std::cout << "Original: " << test.toString() << '\n';
+  std::cout << "Summed by itself: " << SumPolynominals(test, test).toString() << '\n'; // -4x5y + 10x2a3
+  std::cout << "Rest by itself: " << RestPolynominals(test, test).toString() << '\n'; // 0
+  std::cout << "Multiply by itself: " << MultiplyPolynominals(test, test).toString() << '\n'; // 
 
   return 0;
 }
@@ -95,7 +95,14 @@ Polynominal MultiplyPolynominals(Polynominal first, Polynominal second){
     }
   }
 
-  result.correct();
+  // result.correct();
+
+  return result;
+}
+
+Polynominal DividePolynominals(Polynominal first, Polynominal second){
+
+  Polynominal result;
 
   return result;
 }
