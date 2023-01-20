@@ -41,10 +41,7 @@ class Polynominal{
     int grade = 0;
     for (Monomial i : monomials){
 
-      int actualGrade = 0;
-      for (std::pair<std::string, int> j : i.literalPart){
-        actualGrade += j.second;
-      }
+      int actualGrade = i.getGrade();
 
       if (actualGrade > grade) grade = actualGrade;
     }
@@ -61,5 +58,27 @@ class Polynominal{
         monomials.erase(monomials.begin() + j);
       }
     }
+
+    order();
+  }
+
+  void order(){
+
+    bool hasChangedOrder = false;
+
+    for (int i = 0; i < monomials.size() - 2; i++){
+      if (monomials[i + 1].getGrade() <= monomials[i].getGrade()) continue;
+
+      Monomial temp = monomials[i + 1];
+
+      monomials[i + 1] = monomials[i];
+
+      monomials[i] = temp;
+
+      hasChangedOrder = true;
+      
+    }
+
+    if (hasChangedOrder) order();
   }
 };

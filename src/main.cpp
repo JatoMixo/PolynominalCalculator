@@ -89,13 +89,13 @@ Polynominal MultiplyPolynominals(Polynominal first, Polynominal second){
       std::map<std::string, int> literalPart;
 
       for (std::pair<std::string, int> var : i.literalPart) literalPart[var.first] = var.second;
-      for (std::pair<std::string, int> var : j.literalPart) literalPart[var.first] *= var.second;
+      for (std::pair<std::string, int> var : j.literalPart) literalPart[var.first] += var.second;
       
       result.monomials.push_back(Monomial(i.coefficient * j.coefficient, literalPart));
     }
   }
 
-  // result.correct();
+  result.correct();
 
   return result;
 }

@@ -10,4 +10,13 @@ class Monomial{
 
   int coefficient;
   std::map<std::string, int> literalPart;
+
+  int getGrade(){
+    int grade = 0;
+    for (std::pair<std::string, int> i : literalPart){
+      grade += i.second;
+    }
+
+    return grade;
+  }
 };
