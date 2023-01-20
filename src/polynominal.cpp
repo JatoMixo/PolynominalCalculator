@@ -51,4 +51,15 @@ class Polynominal{
 
     return grade;
   }
+
+  void correct(){
+    for (int i = 0; i < monomials.size(); i++){
+      for (int j = 0; j < monomials.size(); j++){
+        if (monomials[i].literalPart != monomials[i].literalPart) continue; 
+        monomials.push_back(Monomial(monomials[i].coefficient + monomials[i].coefficient, monomials[i].literalPart));
+        monomials.erase(monomials.begin() + i);
+        monomials.erase(monomials.begin() + j);
+      }
+    }
+  }
 };

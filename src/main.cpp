@@ -49,9 +49,9 @@ int main(){
   test.monomials.push_back(Monomial(-2, {{"x", 5}, {"y", 1}}));
 
   std::cout << test.toString() << '\n';
-  std::cout << SumPolynominals(test, test).toString() << '\n';
-  std::cout << RestPolynominals(test, test).toString() << '\n';
-  std::cout << MultiplyPolynominals(test, test).toString() << '\n';
+  std::cout << SumPolynominals(test, test).toString() << '\n'; // -4x5y + 10x2a3
+  std::cout << RestPolynominals(test, test).toString() << '\n'; // 0
+  std::cout << MultiplyPolynominals(test, test).toString() << '\n'; // 
 
   return 0;
 }
@@ -88,9 +88,14 @@ Polynominal MultiplyPolynominals(Polynominal first, Polynominal second){
 
       std::map<std::string, int> literalPart;
 
-      if (i.coefficient * j.coefficient != 0) result.monomials.push_back(Monomial(i.coefficient * j.coefficient, literalPart));
+      for (std::pair<std::string, int> var : i.literalPart) literalPart[var.first] = var.second;
+      for (std::pair<std::string, int> var : j.literalPart) literalPart[var.first] *= var.second;
+      
+      result.monomials.push_back(Monomial(i.coefficient * j.coefficient, literalPart));
     }
   }
+
+  // result.correct();
 
   return result;
 }
