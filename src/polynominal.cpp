@@ -32,43 +32,61 @@ class Polynominal{
       str += ' ';
     }
 
+    // In case it's a NULL polynominal, print '0' instead of nothing
     if (monomials.size() == 0) return "0";
 
     return str;
   }
 
+  // Get grade of the polynominal
   int getGrade(){
     int grade = 0;
+    
+    // For every monomial in the polynominal
     for (Monomial i : monomials){
 
       int actualGrade = i.getGrade();
 
+      // If grade of the new monomial is higher than the older one, we store that in the variable
       if (actualGrade > grade) grade = actualGrade;
     }
 
     return grade;
   }
 
+  // Correct polynominal to make sure there are not 2 monomials with the same literal part
   void correct(){
     for (int i = 0; i < monomials.size(); i++){
+      
+      // For every monomial in the list, we scroll again the list to make sure there are not monomials with the same literal part
       for (int j = 0; j < monomials.size(); j++){
+        
+        // If they have different literal part, we continue
         if (monomials[i].literalPart != monomials[i].literalPart) continue; 
+
+        // Add a new monomial to the list with the sum of the monomials
         monomials.push_back(Monomial(monomials[i].coefficient + monomials[i].coefficient, monomials[i].literalPart));
+        
+        // Delete the older monomials
         monomials.erase(monomials.begin() + i);
         monomials.erase(monomials.begin() + j);
       }
     }
 
+    // Order the list to make them go in the right order
     order();
   }
 
+  // Order the list to put the monomials in the right order
   void order(){
 
     bool hasChangedOrder = false;
 
     for (int i = 0; i < monomials.size() - 2; i++){
+      // In case the monomial after the one we're checking is lower or equal to it, we continue
       if (monomials[i + 1].getGrade() <= monomials[i].getGrade()) continue;
 
+      // Change position of monomials in the vector using a temporary variable to store one of them
       Monomial temp = monomials[i + 1];
 
       monomials[i + 1] = monomials[i];
@@ -79,6 +97,7 @@ class Polynominal{
       
     }
 
+    // If we changed something, we check again, else the list is fully ordered.
     if (hasChangedOrder) order();
   }
 };
