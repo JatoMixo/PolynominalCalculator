@@ -1,12 +1,13 @@
 #include <vector>
 #include <cmath>
 #include <string>
-#include </home/jatomixo/Code/PolynominalCalculator/src/monomial.cpp>
+#include <D:/Miguel/Programas/PolynominalCalculator/src/monomial.cpp>
 
 class Polynominal{
 
   public:
   Polynominal(){}
+  Polynominal(std::vector<Monomial> monomials) {this->monomials = monomials;}
 
   std::vector<Monomial> monomials;
 

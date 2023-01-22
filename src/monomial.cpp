@@ -16,6 +16,9 @@ class Monomial{
 
   // Get grade of monomial
   int getGrade() {
+    
+    if(literalPart.empty()) return 1;
+
     int grade = 0;
     
     // For every varible in the monomial, sum its grade to the global one.
