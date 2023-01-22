@@ -1,7 +1,7 @@
 #include <vector>
 #include <cmath>
 #include <string>
-#include <D:/Miguel/Programas/PolynominalCalculator/src/monomial.cpp>
+#include </home/jatomixo/Code/PolynominalCalculator/src/monomial.cpp>
 
 class Polynominal{
 

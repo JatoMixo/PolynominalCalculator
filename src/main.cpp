@@ -1,7 +1,7 @@
 #include <iostream>
 #include <map>
 #include <algorithm>
-#include <D:/Miguel/Programas/PolynominalCalculator/src/polynominal.cpp>
+#include </home/jatomixo/Code/PolynominalCalculator/src/polynominal.cpp>
 
 Polynominal SumPolynominals(Polynominal first, Polynominal second);
 Polynominal RestPolynominals(Polynominal first, Polynominal second);
@@ -47,12 +47,20 @@ int main(){
   Polynominal test = Polynominal();
   test.monomials.push_back(Monomial(5, {{"x", 2}, {"a", 3}}));
   test.monomials.push_back(Monomial(-2, {{"x", 5}, {"y", 1}}));
+  
+  Polynominal test2 = Polynominal();
+  test2.monomials.push_back(Monomial(7, {{"x", 2}, {"a", 3}}));
+  test2.monomials.push_back(Monomial(-2, {}));
 
   std::cout << "Original: " << test.toString() << '\n';
   std::cout << "Summed by itself: " << SumPolynominals(test, test).toString() << '\n'; // -4x5y + 10x2a3
   std::cout << "Rest by itself: " << RestPolynominals(test, test).toString() << '\n'; // 0
   std::cout << "Multiply by itself: " << MultiplyPolynominals(test, test).toString() << '\n'; // 
-
+  std::cout << "------------------------------\n";
+  std::cout << SumPolynominals(test, test2).toString() << '\n';
+  std::cout << RestPolynominals(test, test2).toString() << '\n';
+  std::cout << MultiplyPolynominals(test, test2).toString() << '\n';
+  
   return 0;
 }
 
@@ -61,7 +69,9 @@ Polynominal SumPolynominals(Polynominal first, Polynominal second){
 
   for (Monomial i : first.monomials){
     for (Monomial j : second.monomials){
-      if (i.literalPart == j.literalPart && i.coefficient + j.coefficient != 0) result.monomials.push_back(Monomial(i.coefficient + j.coefficient, i.literalPart));
+      if (i.literalPart == j.literalPart && i.coefficient + j.coefficient != 0){
+        result.monomials.push_back(Monomial(i.coefficient + j.coefficient, i.literalPart));
+      }
     }
   }
 
