@@ -74,7 +74,7 @@ Polynominal SumPolynominals(Polynominal first, Polynominal second){
       if (first.monomials[i].literalPart == second.monomials[j].literalPart && first.monomials[i].coefficient + second.monomials[j].coefficient != 0){
         result.monomials.push_back(Monomial(first.monomials[i].coefficient + second.monomials[j].coefficient, first.monomials[i].literalPart));
         summed = true;
-      } else if (i == first.monomials.size() - 1){
+      } else if (i == first.monomials.size() - 1 && result.monomials[j].literalPart != second.monomials[j].literalPart){
         result.monomials.push_back(Monomial(second.monomials[j].coefficient, second.monomials[j].literalPart));
       }
     }
