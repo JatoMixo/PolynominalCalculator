@@ -6,7 +6,7 @@
 Polynominal SumPolynominals(Polynominal first, Polynominal second);
 Polynominal RestPolynominals(Polynominal first, Polynominal second);
 Polynominal MultiplyPolynominals(Polynominal first, Polynominal second);
-Polynominal DividePolynominals(Polynominal first, Polynominal second);
+std::pair<Polynominal, Polynominal> DividePolynominals(Polynominal first, Polynominal second);
 
 int main(){
 
@@ -52,6 +52,9 @@ int main(){
   test2.monomials.push_back(Monomial(7, {{"x", 2}, {"a", 3}}));
   test2.monomials.push_back(Monomial(-2, {}));
 
+  Polynominal test3 = Polynominal();
+  test3.monomials.push_back(Monomial(-5, {}));
+
   std::cout << "Original: " << test.toString() << '\n';
   std::cout << "Summed by itself: " << SumPolynominals(test, test).toString() << '\n'; // -4x5y + 10x2a3
   std::cout << "Rest by itself: " << RestPolynominals(test, test).toString() << '\n'; // 0
@@ -60,6 +63,9 @@ int main(){
   std::cout << SumPolynominals(test, test2).toString() << '\n';
   std::cout << RestPolynominals(test, test2).toString() << '\n';
   std::cout << MultiplyPolynominals(test, test2).toString() << '\n';
+  std::cout << "------------------------------\n";
+  std::cout << SumPolynominals(test2, test3).toString() << '\n';
+  std::cout << RestPolynominals(test2, test3).toString() << '\n';
   
   return 0;
 }
@@ -76,13 +82,15 @@ Polynominal SumPolynominals(Polynominal first, Polynominal second){
         second.monomials.erase(second.monomials.begin() + j);
         summed = true;
         break;
-     }
-     result.monomials.push_back(second.monomials[j]);
+      }
+      result.monomials.push_back(second.monomials[j]);
     }
 
     if (!summed) result.monomials.push_back(first.monomials[i]);
     summed = false;
   }
+
+  result.order();
 
   return result;
 }
@@ -119,9 +127,9 @@ Polynominal MultiplyPolynominals(Polynominal first, Polynominal second){
   return result;
 }
 
-Polynominal DividePolynominals(Polynominal first, Polynominal second){
+std::pair<Polynominal, Polynominal> DividePolynominals(Polynominal first, Polynominal second){
 
-  Polynominal result;
+  std::pair<Polynominal, Polynominal> result;
 
   return result;
 }
