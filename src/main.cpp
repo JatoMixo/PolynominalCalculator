@@ -70,6 +70,10 @@ int main(){
   return 0;
 }
 
+bool canSumMonomials(Monomial mon1, Monomial mon2){
+  return mon1.literalPart == mon2.literalPart && mon1.coefficient + mon2.coefficient != 0;
+}
+
 Polynominal SumPolynominals(Polynominal first, Polynominal second){
   Polynominal result = Polynominal();
 
@@ -77,13 +81,15 @@ Polynominal SumPolynominals(Polynominal first, Polynominal second){
 
   for (int i = 0; i < first.monomials.size(); i++){
     for (int j = 0; j < second.monomials.size(); j++){
-      if (first.monomials[i].literalPart == second.monomials[j].literalPart && first.monomials[i].coefficient + second.monomials[j].coefficient != 0){
-        result.monomials.push_back(Monomial(first.monomials[i].coefficient + second.monomials[j].coefficient, first.monomials[i].literalPart));
-        second.monomials.erase(second.monomials.begin() + j);
-        summed = true;
-        break;
+
+      if (!canSumMonomials(first.monomials[i], second.monomials[i])){
+        result.monomials.push_back(second.monomials[j]);
       }
-      result.monomials.push_back(second.monomials[j]);
+
+      result.monomials.push_back(Monomial(first.monomials[i].coefficient + second.monomials[j].coefficient, first.monomials[i].literalPart));
+      second.monomials.erase(second.monomials.begin() + j);
+      summed = true;
+      break;
     }
 
     if (!summed) result.monomials.push_back(first.monomials[i]);
@@ -99,8 +105,8 @@ Polynominal RestPolynominals(Polynominal first, Polynominal second){
 
   Polynominal secondInverted;
 
-  for (int i = second.monomials.size() - 1; i >= 0; i--){
-    if (second.monomials[i].coefficient - first.monomials[i].coefficient != 0) secondInverted.monomials.push_back(Monomial(second.monomials[i].coefficient * -1, second.monomials[i].literalPart));
+  for (Monomial i : second.monomials){
+    secondInverted.monomials.push_back(Monomial(i.coefficient * -1, i.literalPart));
   }
 
   return SumPolynominals(first, secondInverted);
