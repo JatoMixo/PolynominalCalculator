@@ -67,19 +67,20 @@ int main(){
 Polynominal SumPolynominals(Polynominal first, Polynominal second){
   Polynominal result = Polynominal();
 
-  bool summed = false;
+  bool summed;
 
   for (int i = 0; i < first.monomials.size(); i++){
     for (int j = 0; j < second.monomials.size(); j++){
       if (first.monomials[i].literalPart == second.monomials[j].literalPart && first.monomials[i].coefficient + second.monomials[j].coefficient != 0){
         result.monomials.push_back(Monomial(first.monomials[i].coefficient + second.monomials[j].coefficient, first.monomials[i].literalPart));
+        second.monomials.erase(second.monomials.begin() + j);
         summed = true;
-      } else if (i == first.monomials.size() - 1 && result.monomials[j].literalPart != second.monomials[j].literalPart){
-        result.monomials.push_back(Monomial(second.monomials[j].coefficient, second.monomials[j].literalPart));
-      }
+        break;
+     }
+     result.monomials.push_back(second.monomials[j]);
     }
 
-    if (!summed) result.monomials.push_back(Monomial(first.monomials[i].coefficient, first.monomials[i].literalPart));
+    if (!summed) result.monomials.push_back(first.monomials[i]);
     summed = false;
   }
 
