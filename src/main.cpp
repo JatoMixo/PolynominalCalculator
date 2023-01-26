@@ -66,12 +66,13 @@ int main(){
   std::cout << "------------------------------\n";
   std::cout << SumPolynominals(test2, test3).toString() << '\n'; // 7(x^2)(a^3) - 7
   std::cout << RestPolynominals(test2, test3).toString() << '\n';
+  std::cout << "------------------------------\n";
+  Polynominal test4 = Polynominal();
+  test4.monomials.push_back(Monomial(6, {}));
+  Polynominal result = SumPolynominals(test3, test4);
+  std::cout << result.toString() << '\n';
   
   return 0;
-}
-
-bool canSumMonomials(Monomial mon1, Monomial mon2){
-  return mon1.literalPart == mon2.literalPart && mon1.coefficient + mon2.coefficient != 0;
 }
 
 Polynominal SumPolynominals(Polynominal first, Polynominal second){
@@ -90,6 +91,10 @@ Polynominal SumPolynominals(Polynominal first, Polynominal second){
     for (int j = 0; j < second.monomials.size(); j++) {
       if (!canSumMonomials(first.monomials[i], second.monomials[j]) && i == first.monomials.size() - 1){
         result.monomials.push_back(second.monomials[j]);
+        continue;
+      }
+
+      if (!canSumMonomials(first.monomials[i], second.monomials[j])) {
         continue;
       }
 

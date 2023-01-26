@@ -21,7 +21,7 @@ class Polynominal{
       // Add the coefficient
       if (monomials[i].coefficient > 0) str += '+';
       else if (monomials[i].coefficient < 0) str += '-';
-      if (abs(monomials[i].coefficient) > 1) str += std::to_string(abs(monomials[i].coefficient));
+      if (abs(monomials[i].coefficient) > 1 || i == 0) str += std::to_string(abs(monomials[i].coefficient));
 
       // Check if it has literal parts and add it
       for (std::pair<std::string, int> j : monomials[i].literalPart){
@@ -55,27 +55,29 @@ class Polynominal{
     return grade;
   }
 
-  // Correct polynominal to make sure there are not 2 monomials with the same literal part
   void correct(){
-    for (int i = 0; i < monomials.size(); i++){
-      
-      // For every monomial in the list, we scroll again the list to make sure there are not monomials with the same literal part
-      for (int j = 0; j < monomials.size(); j++){
-        
-        // If they have different literal part, we continue
-        if (monomials[i].literalPart != monomials[i].literalPart) continue; 
 
-        // Add a new monomial to the list with the sum of the monomials
-        monomials.push_back(Monomial(monomials[i].coefficient + monomials[i].coefficient, monomials[i].literalPart));
-        
-        // Delete the older monomials
+    std::vector<Monomial> correctedMonomials;
+    
+    for (int i = 0; i < monomials.size(); i++){
+      for (int j = 0; j < monomials.size(); j++){
+        if (!canSumMonomials(monomials[i], monomials[j]) && i == monomials.size() - 1){
+          correctedMonomials.push_back(monomials[i]);
+          continue;
+        }
+
+        if (!canSumMonomials(monomials[i], monomials[j])){
+          continue;
+        }
+
+        correctedMonomials.push_back(Monomial(monomials[i].coefficient + monomials[j].coefficient, monomials[i].literalPart));
         monomials.erase(monomials.begin() + i);
         monomials.erase(monomials.begin() + j);
+        break;
       }
     }
 
-    // Order the list to make them go in the right order
-    order();
+    monomials = correctedMonomials;
   }
 
   // Order the list to put the monomials in the right order

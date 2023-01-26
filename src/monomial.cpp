@@ -29,3 +29,8 @@ class Monomial{
     return grade;
   }
 };
+
+bool canSumMonomials(Monomial mon1, Monomial mon2){
+  return mon1.literalPart == mon2.literalPart && mon1.coefficient + mon2.coefficient != 0;
+}
+
