@@ -60,11 +60,11 @@ int main(){
   std::cout << "Rest by itself: " << RestPolynominals(test, test).toString() << '\n'; // 0
   std::cout << "Multiply by itself: " << MultiplyPolynominals(test, test).toString() << '\n'; // 
   std::cout << "------------------------------\n";
-  std::cout << SumPolynominals(test, test2).toString() << '\n';
+  std::cout << SumPolynominals(test, test2).toString() << '\n'; // 12(x^2)(a^3) -2(x^5)y - 2
   std::cout << RestPolynominals(test, test2).toString() << '\n';
   std::cout << MultiplyPolynominals(test, test2).toString() << '\n';
   std::cout << "------------------------------\n";
-  std::cout << SumPolynominals(test2, test3).toString() << '\n';
+  std::cout << SumPolynominals(test2, test3).toString() << '\n'; // 7(x^2)(a^3) - 7
   std::cout << RestPolynominals(test2, test3).toString() << '\n';
   
   return 0;
@@ -75,28 +75,35 @@ bool canSumMonomials(Monomial mon1, Monomial mon2){
 }
 
 Polynominal SumPolynominals(Polynominal first, Polynominal second){
+
+  if (first.monomials.empty()){
+    return second;
+  }
+
   Polynominal result = Polynominal();
 
-  bool summed;
-
   for (int i = 0; i < first.monomials.size(); i++){
-    for (int j = 0; j < second.monomials.size(); j++){
 
-      if (!canSumMonomials(first.monomials[i], second.monomials[i])){
+    bool summed = false;
+
+    int j = 0;
+    for (int j = 0; j < second.monomials.size(); j++) {
+      if (!canSumMonomials(first.monomials[i], second.monomials[j]) && i == first.monomials.size() - 1){
         result.monomials.push_back(second.monomials[j]);
+        continue;
       }
 
-      result.monomials.push_back(Monomial(first.monomials[i].coefficient + second.monomials[j].coefficient, first.monomials[i].literalPart));
+      result.monomials.push_back(Monomial(first.monomials[i].coefficient + second.monomials[i].coefficient, first.monomials[i].literalPart));
       second.monomials.erase(second.monomials.begin() + j);
       summed = true;
       break;
     }
 
-    if (!summed) result.monomials.push_back(first.monomials[i]);
+    if (!summed){
+      result.monomials.push_back(first.monomials[i]);
+    }
     summed = false;
   }
-
-  result.order();
 
   return result;
 }
