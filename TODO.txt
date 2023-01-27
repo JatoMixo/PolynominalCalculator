@@ -1,4 +1,3 @@
-- Check and correct Rest
 - Make Correct Function
 - Make Division Function
 - Make std::string to Polynominal Function
