@@ -50,21 +50,21 @@ int main(){
   
   Polynominal test2 = Polynominal();
   test2.monomials.push_back(Monomial(7, {{"x", 2}, {"a", 3}}));
-  test2.monomials.push_back(Monomial(-2, {}));
+  test2.monomials.push_back(Monomial(-4, {}));
 
   Polynominal test3 = Polynominal();
-  test3.monomials.push_back(Monomial(-5, {}));
+  test3.monomials.push_back(Monomial(6, {}));
 
   std::cout << "Original: " << test.toString() << '\n';
   std::cout << "Summed by itself: " << SumPolynominals(test, test).toString() << '\n'; // -4x5y + 10x2a3
   std::cout << "Rest by itself: " << RestPolynominals(test, test).toString() << '\n'; // 0
   std::cout << "Multiply by itself: " << MultiplyPolynominals(test, test).toString() << '\n'; // 
   std::cout << "------------------------------\n";
-  std::cout << SumPolynominals(test, test2).toString() << '\n'; // 12(x^2)(a^3) -2(x^5)y - 2
+  std::cout << SumPolynominals(test, test2).toString() << '\n'; // 12(x^2)(a^3) -2(x^5)y - 4
   std::cout << RestPolynominals(test, test2).toString() << '\n';
   std::cout << MultiplyPolynominals(test, test2).toString() << '\n';
   std::cout << "------------------------------\n";
-  std::cout << SumPolynominals(test2, test3).toString() << '\n'; // 7(x^2)(a^3) - 7
+  std::cout << SumPolynominals(test2, test3).toString() << '\n'; // 7(x^2)(a^3) + 2
   std::cout << RestPolynominals(test2, test3).toString() << '\n';
   std::cout << "------------------------------\n";
   Polynominal test4 = Polynominal();
@@ -89,6 +89,7 @@ Polynominal SumPolynominals(Polynominal first, Polynominal second){
 
     int j = 0;
     for (int j = 0; j < second.monomials.size(); j++) {
+
       if (!canSumMonomials(first.monomials[i], second.monomials[j]) && i == first.monomials.size() - 1){
         result.monomials.push_back(second.monomials[j]);
         continue;
@@ -98,7 +99,7 @@ Polynominal SumPolynominals(Polynominal first, Polynominal second){
         continue;
       }
 
-      result.monomials.push_back(Monomial(first.monomials[i].coefficient + second.monomials[i].coefficient, first.monomials[i].literalPart));
+      result.monomials.push_back(Monomial(first.monomials[i].coefficient + second.monomials[j].coefficient, first.monomials[i].literalPart));
       second.monomials.erase(second.monomials.begin() + j);
       summed = true;
       break;
