@@ -55,14 +55,35 @@ class Polynominal{
     return grade;
   }
 
+  // Order the list to put the monomials in the right order
+  void order(){
+
+    bool hasChangedOrder = false;
+
+    for (int i = 1; i < monomials.size(); i++){
+      if (monomials[i - 1].getGrade() < monomials[i].getGrade() || (monomials[i - 1].getGrade() == monomials[i].getGrade() && monomials[i - 1].coefficient > monomials[i].coefficient)) continue;
+
+      Monomial temp = monomials[i - 1];
+
+      monomials[i - 1] = monomials[i];
+
+      monomials[i] = temp;
+
+      hasChangedOrder = true;
+    }
+
+    // If we changed something, we check again, else the list is fully ordered.
+    if (hasChangedOrder) order();
+  }
+
   void correct(){
 
-    std::vector<Monomial> correctedMonomials;
+    Polynominal correctPolynominal;
     
     for (int i = 0; i < monomials.size(); i++){
       for (int j = 0; j < monomials.size(); j++){
         if (!canSumMonomials(monomials[i], monomials[j]) && i == monomials.size() - 1){
-          correctedMonomials.push_back(monomials[i]);
+          correctPolynominal.monomials.push_back(monomials[i]);
           continue;
         }
 
@@ -70,37 +91,15 @@ class Polynominal{
           continue;
         }
 
-        correctedMonomials.push_back(Monomial(monomials[i].coefficient + monomials[j].coefficient, monomials[i].literalPart));
+        correctPolynominal.monomials.push_back(Monomial(monomials[i].coefficient + monomials[j].coefficient, monomials[i].literalPart));
         monomials.erase(monomials.begin() + i);
         monomials.erase(monomials.begin() + j);
         break;
       }
     }
 
-    monomials = correctedMonomials;
-  }
+    correctPolynominal.order();
 
-  // Order the list to put the monomials in the right order
-  void order(){
-
-    bool hasChangedOrder = false;
-
-    for (int i = 0; i < monomials.size() - 2; i++){
-      // In case the monomial after the one we're checking is lower or equal to it, we continue
-      if (monomials[i + 1].getGrade() <= monomials[i].getGrade()) continue;
-
-      // Change position of monomials in the vector using a temporary variable to store one of them
-      Monomial temp = monomials[i + 1];
-
-      monomials[i + 1] = monomials[i];
-
-      monomials[i] = temp;
-
-      hasChangedOrder = true;
-      
-    }
-
-    // If we changed something, we check again, else the list is fully ordered.
-    if (hasChangedOrder) order();
+    this->monomials = correctPolynominal.monomials;
   }
 };

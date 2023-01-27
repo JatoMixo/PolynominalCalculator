@@ -111,6 +111,8 @@ Polynominal SumPolynominals(Polynominal first, Polynominal second){
     summed = false;
   }
 
+  result.correct();
+
   return result;
 }
 
@@ -141,7 +143,7 @@ Polynominal MultiplyPolynominals(Polynominal first, Polynominal second){
     }
   }
 
-  // result.correct();
+  result.correct();
 
   return result;
 }
