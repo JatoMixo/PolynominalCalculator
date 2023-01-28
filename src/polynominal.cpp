@@ -13,28 +13,14 @@ class Polynominal{
 
   std::string toString(){
 
+    if (monomials.size() == 0) return "0";
+
     std::string str;
 
-    // Iterate over every monomial
     for (int i = monomials.size() - 1; i >= 0; i--){
-
-      // Add the coefficient
-      if (monomials[i].coefficient > 0) str += '+';
-      else if (monomials[i].coefficient < 0) str += '-';
-      if (abs(monomials[i].coefficient) > 1 || i == 0) str += std::to_string(abs(monomials[i].coefficient));
-
-      // Check if it has literal parts and add it
-      for (std::pair<std::string, int> j : monomials[i].literalPart){
-        // Add the name of the variable + its exponent (In case it's higher than 1)
-        str += (j.second > 1 ? "(" : "") + j.first + ((j.second > 1) ? '^' + std::to_string(j.second) + ')' : "");
-      }
-
-      // Add a space just to separate them
-      str += ' ';
+      str += monomials[i].toString();
+      if (i != 0) str += ' ';
     }
-
-    // In case it's a NULL polynominal, print '0' instead of nothing
-    if (monomials.size() == 0) return "0";
 
     return str;
   }

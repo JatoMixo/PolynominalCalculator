@@ -6,6 +6,7 @@
 Polynominal SumPolynominals(Polynominal first, Polynominal second);
 Polynominal RestPolynominals(Polynominal first, Polynominal second);
 Polynominal MultiplyPolynominals(Polynominal first, Polynominal second);
+Monomial DivideMonomials(Monomial first, Monomial second);
 std::pair<Polynominal, Polynominal> DividePolynominals(Polynominal first, Polynominal second);
 
 int main(){
@@ -71,6 +72,15 @@ int main(){
   test4.monomials.push_back(Monomial(6, {}));
   Polynominal result = SumPolynominals(test3, test4);
   std::cout << result.toString() << '\n';
+  std::cout << "------------------------------\n";
+  Polynominal test5;
+  test5.monomials.push_back(Monomial(2, {{"x", 2}, {"y", 1}}));
+  test5.monomials.push_back(Monomial(2, {{"x", 1}}));
+  test5.monomials.push_back(DivideMonomials(test5.monomials[0], test5.monomials[1]));
+  std::cout << test5.toString() << '\n';
+  std::cout << "------------------------------\n";
+  std::cout << DividePolynominals(test3, test4).first.toString() << '\n';
+  std::cout << DividePolynominals(test3, test4).second.toString() << '\n';
   
   return 0;
 }
@@ -111,7 +121,7 @@ Polynominal SumPolynominals(Polynominal first, Polynominal second){
     summed = false;
   }
 
-  result.correct();
+  // result.correct();
 
   return result;
 }
@@ -143,14 +153,30 @@ Polynominal MultiplyPolynominals(Polynominal first, Polynominal second){
     }
   }
 
-  result.correct();
+  // result.correct();
 
   return result;
 }
 
 std::pair<Polynominal, Polynominal> DividePolynominals(Polynominal first, Polynominal second){
 
+  first.order();
+  second.order();
+
   std::pair<Polynominal, Polynominal> result;
+  result.second = first;
+
+  while(result.second.getGrade() >= second.getGrade()){
+    Monomial divisor = DivideMonomials(first.monomials[first.monomials.size() - 1], second.monomials[second.monomials.size() - 1]);
+    result.first.monomials.push_back(divisor);
+
+    Polynominal rest = MultiplyPolynominals(result.second, Polynominal({divisor}));
+
+    result.second = SumPolynominals(result.second, rest);
+  }
+
+  // result.first.correct();
+  // result.second.correct();
 
   return result;
 }

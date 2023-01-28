@@ -28,9 +28,55 @@ class Monomial{
 
     return grade;
   }
+  
+  std::string toString(){
+
+    if (coefficient == 0){
+      return "0";
+    }
+
+    std::string str;
+
+    if (coefficient > 0){
+      str += '+';
+    } else if (coefficient < 0){
+      str += '-';
+    }
+
+    if (abs(coefficient) > 1){
+      str += std::to_string(abs(coefficient));
+    }
+
+    for (std::pair<std::string, int> i : literalPart){
+      str += (i.second > 1 ? "(" : "") + i.first + ((i.second > 1) ? '^' + std::to_string(i.second) + ')' : "");
+    }
+
+    return str;
+  }
 };
 
 bool canSumMonomials(Monomial mon1, Monomial mon2){
   return mon1.literalPart == mon2.literalPart && mon1.coefficient + mon2.coefficient != 0;
 }
 
+Monomial DivideMonomials(Monomial first, Monomial second){
+
+  Monomial result = Monomial();
+
+  if (second.coefficient == 0) {
+    return Monomial();
+  }
+
+  result.coefficient = first.coefficient / second.coefficient;
+
+  for (std::pair<std::string, int> i : first.literalPart){
+    if (second.literalPart.find(i.first) == second.literalPart.end()){
+      result.literalPart[i.first] = i.second;
+      continue;
+    }
+
+    result.literalPart[i.first] = i.second - second.literalPart[i.first];
+  }
+
+  return result;
+}
