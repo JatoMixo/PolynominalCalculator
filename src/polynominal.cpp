@@ -78,6 +78,10 @@ class Polynominal{
 
   void correct(){
 
+    if (monomials.size() <= 1) {
+      return;
+    }
+
     Polynominal correctPolynominal;
     
     for (int i = 0; i < monomials.size(); i++){
@@ -87,14 +91,13 @@ class Polynominal{
           continue;
         }
 
-        if (!canSumMonomials(monomials[i], monomials[j])){
+        if (!canSumMonomials(monomials[i], monomials[j])) {
           continue;
         }
 
         correctPolynominal.monomials.push_back(Monomial(monomials[i].coefficient + monomials[j].coefficient, monomials[i].literalPart));
         monomials.erase(monomials.begin() + i);
         monomials.erase(monomials.begin() + j);
-        break;
       }
     }
 
