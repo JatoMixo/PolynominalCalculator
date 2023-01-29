@@ -76,7 +76,7 @@ int main(){
   Polynominal test5;
   test5.monomials.push_back(Monomial(2, {{"x", 2}, {"y", 1}}));
   test5.monomials.push_back(Monomial(2, {{"x", 1}}));
-  test5.monomials.push_back(DivideMonomials(test5.monomials[0], test5.monomials[1]));
+  // test5.monomials.push_back(DivideMonomials(test5.monomials[0], test5.monomials[1]));
   std::cout << test5.toString() << '\n';
   
   std::cout << "------------------------------\n";
@@ -101,12 +101,12 @@ Polynominal SumPolynominals(Polynominal first, Polynominal second){
     int j = 0;
     for (int j = 0; j < second.monomials.size(); j++) {
 
-      if (!canSumMonomials(first.monomials[i], second.monomials[j]) && i == first.monomials.size() - 1){
+      if (!canSumMonomials(first.monomials[i], second.monomials[j]) && i == first.monomials.size() - 1 && first.monomials[i].coefficient + second.monomials[j].coefficient != 0){
         result.monomials.push_back(second.monomials[j]);
         continue;
       }
 
-      if (!canSumMonomials(first.monomials[i], second.monomials[j])) {
+      if (!canSumMonomials(first.monomials[i], second.monomials[j]) && first.monomials[i].coefficient + second.monomials[j].coefficient != 0) {
         continue;
       }
 
@@ -122,7 +122,7 @@ Polynominal SumPolynominals(Polynominal first, Polynominal second){
     summed = false;
   }
 
-  // result.correct();
+  result.correct();
 
   return result;
 }
@@ -154,7 +154,7 @@ Polynominal MultiplyPolynominals(Polynominal first, Polynominal second){
     }
   }
 
-  // result.correct();
+  result.correct();
 
   return result;
 }
@@ -177,8 +177,8 @@ std::pair<Polynominal, Polynominal> DividePolynominals(Polynominal first, Polyno
     result.second = SumPolynominals(result.second, rest);
   }
 
-  // result.first.correct();
-  // result.second.correct();
+  result.first.correct();
+  result.second.correct();
 
   return result;
 }

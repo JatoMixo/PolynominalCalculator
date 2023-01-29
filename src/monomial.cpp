@@ -56,7 +56,7 @@ class Monomial{
 };
 
 bool canSumMonomials(Monomial mon1, Monomial mon2){
-  return mon1.literalPart == mon2.literalPart && mon1.coefficient + mon2.coefficient != 0;
+  return mon1.literalPart == mon2.literalPart;
 }
 
 Monomial DivideMonomials(Monomial first, Monomial second){

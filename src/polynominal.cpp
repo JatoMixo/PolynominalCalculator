@@ -69,26 +69,33 @@ class Polynominal{
     }
 
     Polynominal correctPolynominal;
-    
-    for (int i = 0; i < monomials.size(); i++){
-      for (int j = 0; j < monomials.size(); j++){
-        if (!canSumMonomials(monomials[i], monomials[j]) && i == monomials.size() - 1){
-          correctPolynominal.monomials.push_back(monomials[i]);
-          continue;
-        }
 
-        if (!canSumMonomials(monomials[i], monomials[j])) {
-          continue;
-        }
+    bool hasChangedPolynominal = false;
 
-        correctPolynominal.monomials.push_back(Monomial(monomials[i].coefficient + monomials[j].coefficient, monomials[i].literalPart));
-        monomials.erase(monomials.begin() + i);
-        monomials.erase(monomials.begin() + j);
+    order();
+
+    for (int i = 0; i < monomials.size() - 1; i++){
+
+      if (monomials[i].coefficient + monomials[i + 1].coefficient == 0){
+        continue;
       }
+
+      if (!canSumMonomials(monomials[i], monomials[i + 1])){
+        correctPolynominal.monomials.push_back(monomials[i]);
+
+        if (i == monomials.size() - 2){
+          correctPolynominal.monomials.push_back(monomials[i + 1]);
+        }
+        continue;
+      }
+
+      correctPolynominal.monomials.push_back(Monomial(monomials[i].coefficient + monomials[i + 1].coefficient, monomials[i].literalPart));
+      hasChangedPolynominal = true;
     }
 
-    correctPolynominal.order();
-
     this->monomials = correctPolynominal.monomials;
+    order();
+
+    if (hasChangedPolynominal) correct();
   }
 };
