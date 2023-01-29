@@ -78,6 +78,7 @@ int main(){
   test5.monomials.push_back(Monomial(2, {{"x", 1}}));
   test5.monomials.push_back(DivideMonomials(test5.monomials[0], test5.monomials[1]));
   std::cout << test5.toString() << '\n';
+  
   std::cout << "------------------------------\n";
   std::cout << DividePolynominals(test3, test4).first.toString() << '\n';
   std::cout << DividePolynominals(test3, test4).second.toString() << '\n';
@@ -163,6 +164,7 @@ std::pair<Polynominal, Polynominal> DividePolynominals(Polynominal first, Polyno
   first.order();
   second.order();
 
+  // First => C(x); Second => R(x);
   std::pair<Polynominal, Polynominal> result;
   result.second = first;
 
