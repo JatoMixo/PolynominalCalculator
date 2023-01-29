@@ -74,22 +74,23 @@ class Polynominal{
 
     order();
 
-    for (int i = 0; i < monomials.size() - 1; i++){
+    for (int i = 1; i < monomials.size(); i++){
 
-      if (monomials[i].coefficient + monomials[i + 1].coefficient == 0){
+      if (monomials[i].coefficient + monomials[i - 1].coefficient == 0){
         continue;
       }
 
-      if (!canSumMonomials(monomials[i], monomials[i + 1])){
-        correctPolynominal.monomials.push_back(monomials[i]);
+      if (!canSumMonomials(monomials[i], monomials[i - 1])){
+        correctPolynominal.monomials.push_back(monomials[i - 1]);
 
-        if (i == monomials.size() - 2){
-          correctPolynominal.monomials.push_back(monomials[i + 1]);
+        if (i == monomials.size() - 1){
+          correctPolynominal.monomials.push_back(monomials[i]);
         }
+
         continue;
       }
 
-      correctPolynominal.monomials.push_back(Monomial(monomials[i].coefficient + monomials[i + 1].coefficient, monomials[i].literalPart));
+      correctPolynominal.monomials.push_back(Monomial(monomials[i].coefficient + monomials[i - 1].coefficient, monomials[i].literalPart));
       hasChangedPolynominal = true;
     }
 
