@@ -86,7 +86,6 @@ class Polynominal{
 
         checkFinalElementOfArray(i, correctPolynominal);
 
-        std::cout << correctPolynominal.toString() << '\n';
         continue;
       }
 
@@ -98,8 +97,6 @@ class Polynominal{
       i++;
 
       hasChangedOrder = true;
-
-      std::cout << correctPolynominal.toString() << '\n';
     }
 
     correctPolynominal.order();
@@ -110,5 +107,18 @@ class Polynominal{
     }
   
     return correctPolynominal;
+  }
+
+  Monomial getHigherMonomial(){
+
+    Monomial result;
+
+    for (Monomial i : monomials){
+      if (result.getGrade() >= i.getGrade())
+
+      result = i;
+    }
+
+    return result;
   }
 };

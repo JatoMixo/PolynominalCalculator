@@ -43,7 +43,7 @@ class Monomial{
       str += '-';
     }
 
-    if (abs(coefficient) > 1){
+    if (abs(coefficient) > 1 || literalPart.empty()){
       str += std::to_string(abs(coefficient));
     }
 

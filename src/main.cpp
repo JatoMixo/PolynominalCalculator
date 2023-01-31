@@ -54,13 +54,13 @@ int main(){
   test2.monomials.push_back(Monomial(-4, {}));
 
   Polynominal test3 = Polynominal();
-  test3.monomials.push_back(Monomial(6, {}));
+  test3.monomials.push_back(Monomial(12, {{"x", 3}}));
 
-  /*std::cout << "Original: " << test.toString() << '\n';
+  std::cout << "Original: " << test.toString() << '\n';
   std::cout << "Summed by itself: " << SumPolynominals(test, test).toString() << '\n'; // -4x5y + 10x2a3
-  std::cout << "Rest by itself: " << RestPolynominals(test, test).toString() << '\n'; // 0*/
+  std::cout << "Rest by itself: " << RestPolynominals(test, test).toString() << '\n'; // 0
   std::cout << "Multiply by itself: " << MultiplyPolynominals(test, test).toString() << '\n'; // 
-  /*std::cout << "------------------------------\n";
+  std::cout << "------------------------------\n";
   std::cout << SumPolynominals(test, test2).toString() << '\n'; // 12(x^2)(a^3) -2(x^5)y - 4
   std::cout << RestPolynominals(test, test2).toString() << '\n';
   std::cout << MultiplyPolynominals(test, test2).toString() << '\n';
@@ -69,7 +69,7 @@ int main(){
   std::cout << RestPolynominals(test2, test3).toString() << '\n';
   std::cout << "------------------------------\n";
   Polynominal test4 = Polynominal();
-  test4.monomials.push_back(Monomial(6, {}));
+  test4.monomials.push_back(Monomial(6, {{"x", 1}}));
   Polynominal result = SumPolynominals(test3, test4);
   std::cout << result.toString() << '\n';
   std::cout << "------------------------------\n";
@@ -81,7 +81,7 @@ int main(){
   
   std::cout << "------------------------------\n";
   std::cout << DividePolynominals(test3, test4).first.toString() << '\n';
-  std::cout << DividePolynominals(test3, test4).second.toString() << '\n';*/
+  std::cout << DividePolynominals(test3, test4).second.toString() << '\n';
   
   return 0;
 }
@@ -164,6 +164,17 @@ Polynominal MultiplyPolynominals(Polynominal first, Polynominal second){
 
 std::pair<Polynominal, Polynominal> DividePolynominals(Polynominal first, Polynominal second){
 
+  if (second.monomials.size() == 1){
+
+    Polynominal result;
+
+    for (Monomial i : first.monomials){
+      result.monomials.push_back(DivideMonomials(i, second.monomials[0]));
+    }
+
+    return {result, Polynominal()};
+  }
+
   first.order();
   second.order();
 
@@ -171,13 +182,14 @@ std::pair<Polynominal, Polynominal> DividePolynominals(Polynominal first, Polyno
   std::pair<Polynominal, Polynominal> result;
   result.second = first;
 
-  while(result.second.getGrade() >= second.getGrade()){
-    Monomial divisor = DivideMonomials(first.monomials[first.monomials.size() - 1], second.monomials[second.monomials.size() - 1]);
+  while (result.second.getGrade() >= second.getGrade()){
+
+    Monomial divisor = DivideMonomials(result.second.getHigherMonomial(), second.getHigherMonomial());
+
+    Polynominal multiplier = MultiplyPolynominals(second, Polynominal({divisor}));
+
     result.first.monomials.push_back(divisor);
-
-    Polynominal rest = MultiplyPolynominals(result.second, Polynominal({divisor}));
-
-    result.second = SumPolynominals(result.second, rest);
+    result.second = SumPolynominals(result.second, multiplier);
   }
 
   result.first.correct();
