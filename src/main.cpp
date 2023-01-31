@@ -54,7 +54,11 @@ int main(){
   test2.monomials.push_back(Monomial(-4, {}));
 
   Polynominal test3 = Polynominal();
-  test3.monomials.push_back(Monomial(12, {{"x", 3}}));
+  test3.monomials.push_back(Monomial(1, {{"x", 5}}));
+  test3.monomials.push_back(Monomial(-3, {{"x", 4}}));
+  test3.monomials.push_back(Monomial(8, {{"x", 2}}));
+  test3.monomials.push_back(Monomial(-3, {{"x", 3}}));
+  test3.monomials.push_back(Monomial(1, {}));
 
   std::cout << "Original: " << test.toString() << '\n';
   std::cout << "Summed by itself: " << SumPolynominals(test, test).toString() << '\n'; // -4x5y + 10x2a3
@@ -69,7 +73,10 @@ int main(){
   std::cout << RestPolynominals(test2, test3).toString() << '\n';
   std::cout << "------------------------------\n";
   Polynominal test4 = Polynominal();
-  test4.monomials.push_back(Monomial(6, {{"x", 1}}));
+  test4.monomials.push_back(Monomial(1, {{"x", 2}}));
+  test4.monomials.push_back(Monomial(-2, {{"x", 1}}));
+  test4.monomials.push_back(Monomial(1, {}));
+
   Polynominal result = SumPolynominals(test3, test4);
   std::cout << result.toString() << '\n';
   std::cout << "------------------------------\n";
@@ -80,8 +87,8 @@ int main(){
   std::cout << test5.toString() << '\n';
   
   std::cout << "------------------------------\n";
-  std::cout << DividePolynominals(test3, test4).first.toString() << '\n';
-  std::cout << DividePolynominals(test3, test4).second.toString() << '\n';
+  std::cout << DividePolynominals(test3, test4).first.toString() << '\n'; // x3 - x2 -3x + 3
+  std::cout << DividePolynominals(test3, test4).second.toString() << '\n'; // 6x - 2
   
   return 0;
 }
