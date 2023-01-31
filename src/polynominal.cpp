@@ -62,41 +62,53 @@ class Polynominal{
     if (hasChangedOrder) order();
   }
 
-  void correct(){
+  private:
+  void checkFinalElementOfArray(int i, Polynominal &correctPolynominal){
+    if (i == monomials.size() - 1){
+      correctPolynominal.monomials.push_back(monomials[i]);
+    }
+  }
 
-    if (monomials.size() <= 1) {
-      return;
+  public:
+  Polynominal correct(){
+
+    if (monomials.size() <= 1){
+      return Polynominal(monomials);
     }
 
     Polynominal correctPolynominal;
-
-    bool hasChangedPolynominal = false;
-
-    order();
+    bool hasChangedOrder = false;
 
     for (int i = 1; i < monomials.size(); i++){
+
+      if (!canSumMonomials(monomials[i], monomials[i - 1])){
+        correctPolynominal.monomials.push_back(monomials[i - 1]);
+
+        checkFinalElementOfArray(i, correctPolynominal);
+
+        std::cout << correctPolynominal.toString() << '\n';
+        continue;
+      }
 
       if (monomials[i].coefficient + monomials[i - 1].coefficient == 0){
         continue;
       }
 
-      if (!canSumMonomials(monomials[i], monomials[i - 1])){
-        correctPolynominal.monomials.push_back(monomials[i - 1]);
-
-        if (i == monomials.size() - 1){
-          correctPolynominal.monomials.push_back(monomials[i]);
-        }
-
-        continue;
-      }
-
       correctPolynominal.monomials.push_back(Monomial(monomials[i].coefficient + monomials[i - 1].coefficient, monomials[i].literalPart));
-      hasChangedPolynominal = true;
+      i++;
+
+      hasChangedOrder = true;
+
+      std::cout << correctPolynominal.toString() << '\n';
     }
 
-    this->monomials = correctPolynominal.monomials;
-    order();
+    correctPolynominal.order();
+    monomials = correctPolynominal.monomials;
 
-    if (hasChangedPolynominal) correct();
+    if (hasChangedOrder) {
+      correct();
+    }
+  
+    return correctPolynominal;
   }
 };

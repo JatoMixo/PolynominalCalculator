@@ -56,11 +56,11 @@ int main(){
   Polynominal test3 = Polynominal();
   test3.monomials.push_back(Monomial(6, {}));
 
-  std::cout << "Original: " << test.toString() << '\n';
+  /*std::cout << "Original: " << test.toString() << '\n';
   std::cout << "Summed by itself: " << SumPolynominals(test, test).toString() << '\n'; // -4x5y + 10x2a3
-  std::cout << "Rest by itself: " << RestPolynominals(test, test).toString() << '\n'; // 0
+  std::cout << "Rest by itself: " << RestPolynominals(test, test).toString() << '\n'; // 0*/
   std::cout << "Multiply by itself: " << MultiplyPolynominals(test, test).toString() << '\n'; // 
-  std::cout << "------------------------------\n";
+  /*std::cout << "------------------------------\n";
   std::cout << SumPolynominals(test, test2).toString() << '\n'; // 12(x^2)(a^3) -2(x^5)y - 4
   std::cout << RestPolynominals(test, test2).toString() << '\n';
   std::cout << MultiplyPolynominals(test, test2).toString() << '\n';
@@ -81,7 +81,7 @@ int main(){
   
   std::cout << "------------------------------\n";
   std::cout << DividePolynominals(test3, test4).first.toString() << '\n';
-  std::cout << DividePolynominals(test3, test4).second.toString() << '\n';
+  std::cout << DividePolynominals(test3, test4).second.toString() << '\n';*/
   
   return 0;
 }
@@ -147,8 +147,11 @@ Polynominal MultiplyPolynominals(Polynominal first, Polynominal second){
 
       std::map<std::string, int> literalPart;
 
-      for (std::pair<std::string, int> var : i.literalPart) literalPart[var.first] = var.second;
-      for (std::pair<std::string, int> var : j.literalPart) literalPart[var.first] += var.second;
+      literalPart = i.literalPart;
+
+      for (std::pair<std::string, int> var : j.literalPart){
+        literalPart[var.first] += var.second;
+      }
       
       result.monomials.push_back(Monomial(i.coefficient * j.coefficient, literalPart));
     }
